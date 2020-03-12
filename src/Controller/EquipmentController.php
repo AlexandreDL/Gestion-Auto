@@ -79,15 +79,13 @@ class EquipmentController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="equipment_delete", methods={"DELETE"})
+     * @Route("/{id}/delete", name="equipment_delete", methods={"POST"})
      */
-    public function delete(Request $request, Equipment $equipment): Response
+    public function delete( Equipment $equipment): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$equipment->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($equipment);
-            $entityManager->flush();
-        }
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($equipment);
+        $entityManager->flush();
 
         return $this->redirectToRoute('equipment_index');
     }

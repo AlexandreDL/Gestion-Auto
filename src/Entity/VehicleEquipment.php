@@ -32,7 +32,7 @@ class VehicleEquipment
     /**
      * @ORM\Column(type="integer")
      */
-    private $poids;
+    private $weight;
 
     public function getId(): ?int
     {
@@ -51,14 +51,14 @@ class VehicleEquipment
         return $this;
     }
 
-    public function getPoids(): ?int
+    public function getWeight(): ?int
     {
-        return $this->poids;
+        return $this->weight;
     }
 
-    public function setPoids(int $poids): self
+    public function setWeight(int $weight): self
     {
-        $this->poids = $poids;
+        $this->weight = $weight;
 
         return $this;
     }
