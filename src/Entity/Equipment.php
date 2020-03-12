@@ -45,7 +45,10 @@ class Equipment
 
     public function __toString(): ?string
     {
-        return $this->id;
+        return $this->id . " - " . 
+        $this->ShortName . " / " .
+        $this->LongName . ' (' .
+        $this->Weight . ' Kg)';
     }
 
     public function getId(): ?int

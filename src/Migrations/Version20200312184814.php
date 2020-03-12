@@ -23,7 +23,7 @@ final class Version20200312184814 extends AbstractMigration
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('ALTER TABLE equipment CHANGE weight weight NUMERIC(5, 2) NOT NULL');
-        $this->addSql('ALTER TABLE vehicle_equipment ADD weight NUMERIC(5, 2) NOT NULL, DROP poids, CHANGE nom_long long_name VARCHAR(255) NOT NULL');
+        $this->addSql('ALTER TABLE vehicle_equipment ADD weight NUMERIC(5, 2) NOT NULL, DROP weight, CHANGE nom_long long_name VARCHAR(255) NOT NULL');
     }
 
     public function down(Schema $schema) : void
@@ -32,6 +32,6 @@ final class Version20200312184814 extends AbstractMigration
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('ALTER TABLE equipment CHANGE weight weight INT NOT NULL');
-        $this->addSql('ALTER TABLE vehicle_equipment ADD poids INT NOT NULL, DROP weight, CHANGE long_name nom_long VARCHAR(255) CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`');
+        $this->addSql('ALTER TABLE vehicle_equipment ADD weight INT NOT NULL, DROP weight, CHANGE long_name nom_long VARCHAR(255) CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`');
     }
 }

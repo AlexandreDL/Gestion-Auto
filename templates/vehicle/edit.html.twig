@@ -1,35 +1,41 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Vehicle{% endblock %}
+{% block title %}Edition du véhicule
+{% endblock %}
 
 {% block body %}
-
-    <h1 class="alert alert-info text-center">Vehicle Edit</h1>
-
-	<div class="container col-12 text-center">
+	<h1 class="alert alert-info text-center">Edition du véhicule</h1>
+	<div class="container col-8 text-center">
 		{% include "vehicle/_form.html.twig" %}
 	</div>
-
-	<h3 class="alert alert-secondary text-center d-flex justify-content-center">Vehicle equipments</h3>
+	<h3 class="alert alert-secondary text-center d-flex justify-content-center">Equipements présents</h3>
 	<table class="table text-center">
-            <th>
-                <form class="text-center" action="{{ path('vehicle_equipment_new') }}" method="post">
-                    <button type="submit" class="btn btn-success">
-                        <i class="fa fa-plus fa-lg"></i>
-                    </button>
-                </form>
-            </th>
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Nom Court</th>
+				<th>Nom Long</th>
+				<th>Poids (Kg)</th>
+				<th>
+					<form class="text-center" action="{{ path('vehicle_equipment_new', {'vehicleId': vehicle.id}) }}" method="post">
+						<button type="submit" class="btn btn-success">
+							<i class="fa fa-plus fa-lg"></i>
+						</button>
+					</form>
+				</th>
+			</tr>
 		</thead>
 		<tbody>
-			{% for equipment in equipments %}
-				<pre>
-                {{ dump(equipment) }}
-            </pre>
+			{% for equipment in equipments|sort((a, b) => a.weight <=> b.weight) %}
 				<tr>
 					<td>{{ equipment.equipment.id }}</td>
+					<td>{{ equipment.equipment.shortName }}</td>
 					<td>{{ equipment.longName }}</td>
 					<td>{{ equipment.weight }}</td>
 					<td class="d-flex justify-content-center">
+						<a href="{{ path('vehicle_equipment_edit', {'vehicle': vehicle.id, 'equipment': equipment.equipment.id}) }}" class="btn btn-warning mr-2">
+							<i class="fa fa-pencil fa-lg" aria-hidden="true"></i>
+						</a>
 						<form action="{{ path('vehicle_equipment_delete', {'equipment': equipment.equipment.id, 'vehicle': vehicle.id}) }}" method="post">
 							<button type="submit" class="btn btn-danger">
 								<i class="fa fa-trash"></i>
@@ -39,7 +45,7 @@
 				</tr>
 			{% else %}
 				<tr>
-					<td colspan="6" class="alert alert-danger">No equipment in this vehicle !</td>
+					<td colspan="6" class="alert alert-warning">Aucun équipment présent sur ce véhicle !</td>
 				</tr>
 			{% endfor %}
 		</tbody>

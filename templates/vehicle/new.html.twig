@@ -1,13 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Vehicle{% endblock %}
+{% block title %}Nouveau véhicule
+{% endblock %}
 
 {% block body %}
-    <h1 class="alert alert-info text-center">Create new Vehicle</h1>
-
-    <div class="container col-12 text-center">
-    {% include "vehicle/_form.html.twig" %}
+	<h1 class="alert alert-info text-center">Ajout d'un véhicule</h1>
+	<div class="container col-8 text-center">
+		{% include "vehicle/_form.html.twig" %}
 	</div>
-
-    <a href="{{ path('vehicle_index') }}">back to list</a>
 {% endblock %}

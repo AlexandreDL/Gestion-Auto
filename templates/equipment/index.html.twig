@@ -1,27 +1,33 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Equipment index{% endblock %}
+{% block title %}Liste des équipements
+{% endblock %}
 
 {% block body %}
-	<h1 class="alert alert-info text-center">Equipments list</h1>
-	<a class="btn btn-primary d-flex justify-content-center m-2" href="{{ path('equipment_new') }}">Create new equipment</a>
+	<h1 class="alert alert-info text-center">Liste des équipements</h1>
 	<table class="table text-center">
 		<thead>
 			<tr>
 				<th>Id</th>
-				<th>ShortName</th>
-				<th>LongName</th>
-				<th>Weight (kg)</th>
-				<th>Actions</th>
+				<th>Nom Court</th>
+				<th>Nom Long</th>
+				<th>Poids (Kg)</th>
+				<th>
+					<form class="text-center" action="{{ path('equipment_new') }}" method="post">
+						<button type="submit" class="btn btn-success">
+							<i class="fa fa-plus fa-lg"></i>
+						</button>
+					</form>
+				</th>
 			</tr>
 		</thead>
 		<tbody>
-			{% for equipment in equipments %}
+			{% for equipment in equipments|sort((a, b) => a.weight <=> b.weight) %}
 				<tr>
 					<td>{{ equipment.id }}</td>
 					<td>{{ equipment.shortName }}</td>
 					<td>{{ equipment.longName }}</td>
-					<td>{{ equipment.Weight }}</td>
+					<td>{{ equipment.weight }}</td>
 					<td class="d-flex justify-content-center">
 						<a href="{{ path('equipment_show', {'id': equipment.id}) }}" class="btn btn-info mr-2">
 							<i class="fa fa-eye fa-lg" aria-hidden="true"></i>
@@ -38,7 +44,7 @@
 				</tr>
 			{% else %}
 				<tr>
-					<td colspan="5" class="alert alert-danger">No equipment found !</td>
+					<td colspan="5" class="alert alert-danger">Aucun équipement trouvé !</td>
 				</tr>
 			{% endfor %}
 		</tbody>

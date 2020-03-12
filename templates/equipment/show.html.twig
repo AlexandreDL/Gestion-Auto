@@ -1,43 +1,41 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Equipment{% endblock %}
+{% block title %}Détails de l'équipement
+{% endblock %}
 
 {% block body %}
-
-    <h1 class="alert alert-info text-center">Equipment details</h1>
-
-    <div class="d-flex justify-content-center m-3">
-    	<a href="{{ path('equipment_index') }}" class="btn btn-info mr-2">
-			<i class="fa fa-arrow-left" aria-hidden="true"></i>
+	<h1 class="alert alert-info text-center">Détails de l'équipement</h1>
+	<div class="d-flex justify-content-center m-3">
+		<a href="{{ path('equipment_index') }}" class="btn btn-info mr-2">
+			<i class="fa fa-arrow-left fa-lg" aria-hidden="true"></i>
 		</a>
 		<a href="{{ path('equipment_edit', {'id': equipment.id}) }}" class="btn btn-warning mr-2">
-			<i class="fa fa-pencil" aria-hidden="true"></i>
+			<i class="fa fa-pencil fa-lg" aria-hidden="true"></i>
 		</a>
 		<form action="{{ path('equipment_delete', {'id': equipment.id}) }}" method="post">
 			<button type="submit" class="btn btn-danger">
-				<i class="fa fa-trash"></i>
+				<i class="fa fa-trash fa-lg"></i>
 			</button>
 		</form>
 	</div>
-    <table class="table d-flex justify-content-center">
+	<table class="table d-flex justify-content-center">
 		<tbody>
 			<tr>
 				<th>Id</th>
 				<td>{{ equipment.id }}</td>
 			</tr>
 			<tr>
-				<th>Short Name</th>
+				<th>Nom Court</th>
 				<td>{{ equipment.shortName }}</td>
 			</tr>
 			<tr>
-				<th>Long Name</th>
+				<th>Nom Long</th>
 				<td>{{ equipment.longName }}</td>
 			</tr>
 			<tr>
-				<th>Weight (Kg)</th>
+				<th>Poids (Kg)</th>
 				<td>{{ equipment.weight }}</td>
 			</tr>
 		</tbody>
 	</table>
-
 {% endblock %}

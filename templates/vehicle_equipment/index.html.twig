@@ -1,15 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}VehicleEquipment index{% endblock %}
+{% block title %}VehicleEquipement index{% endblock %}
 
 {% block body %}
-    <h1>VehicleEquipment index</h1>
+    <h1>VehicleEquipement index</h1>
 
     <table class="table">
         <thead>
             <tr>
-                <th>LongName</th>
-                <th>Weight</th>
+                <th>Nom Long</th>
+                <th>Poids</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -19,17 +19,17 @@
                 <td>{{ vehicle_equipment.longName }}</td>
                 <td>{{ vehicle_equipment.weight }}</td>
                 <td>
-                    <a href="{{ path('vehicle_equipment_show', {'vehicle': vehicle_equipment.vehicle}) }}">show</a>
-                    <a href="{{ path('vehicle_equipment_edit', {'vehicle': vehicle_equipment.vehicle}) }}">edit</a>
+                    <a href="{{ path('vehicle_equipment_show', {'vehicle': vehicle_equipment.vehicle}) }}">afficher</a>
+                    <a href="{{ path('vehicle_equipment_edit', {'vehicle': vehicle_equipment.vehicle}) }}">editer</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="3">no records found</td>
+                <td colspan="3">pas d'équipement trouvé</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('vehicle_equipment_new') }}">Create new</a>
+    <a href="{{ path('vehicle_equipment_new') }}">Créer un nouvel équipement</a>
 {% endblock %}

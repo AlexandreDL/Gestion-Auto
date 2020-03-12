@@ -25,12 +25,12 @@ class VehicleEquipment
     private $equipment;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $LongName;
 
     /**
-     * @ORM\Column(type="decimal", precision=5, scale=2)
+     * @ORM\Column(type="decimal", precision=5, scale=2, nullable=true)
      */
     private $weight;
 

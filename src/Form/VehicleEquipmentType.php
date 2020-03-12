@@ -12,7 +12,6 @@ class VehicleEquipmentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('vehicle')
             ->add('equipment')
             ->add('longName')
             ->add('weight');

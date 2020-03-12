@@ -5,10 +5,10 @@ namespace App\Controller;
 use App\Entity\Equipment;
 use App\Form\EquipmentType;
 use App\Repository\EquipmentRepository;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/equipment")
@@ -21,7 +21,7 @@ class EquipmentController extends AbstractController
     public function index(EquipmentRepository $equipmentRepository): Response
     {
         return $this->render('equipment/index.html.twig', [
-            'equipments' => $equipmentRepository -> findAll(),
+            'equipments' => $equipmentRepository->findAll(),
         ]);
     }
 
@@ -48,7 +48,7 @@ class EquipmentController extends AbstractController
         ]);
     }
 
-        /**
+    /**
      * @Route("/{id}", name="equipment_show", methods={"GET"})
      */
     public function show(Equipment $equipment): Response
@@ -81,7 +81,7 @@ class EquipmentController extends AbstractController
     /**
      * @Route("/{id}/delete", name="equipment_delete", methods={"POST"})
      */
-    public function delete( Equipment $equipment): Response
+    public function delete(Equipment $equipment): Response
     {
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->remove($equipment);

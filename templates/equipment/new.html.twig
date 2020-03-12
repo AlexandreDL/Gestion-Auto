@@ -1,13 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Equipment{% endblock %}
+{% block title %}Nouvel équipement
+{% endblock %}
 
 {% block body %}
-    <h1 class="alert alert-info text-center">Create new Equipment</h1>
-
-    <div class="container col-12 text-center">
-    {% include "equipment/_form.html.twig" %}
+	<h1 class="alert alert-info text-center">Ajout d'un équipement</h1>
+	<div class="container col-8 text-center">
+		{% include "equipment/_form.html.twig" %}
 	</div>
-
-    <a href="{{ path('equipment_index') }}">back to list</a>
 {% endblock %}

@@ -21,7 +21,7 @@ class Vehicle
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $Registration;
+    private $Matriculation;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -58,14 +58,14 @@ class Vehicle
         return $this->id;
     }
 
-    public function getRegistration(): ?string
+    public function getMatriculation(): ?string
     {
-        return $this->Registration;
+        return $this->Matriculation;
     }
 
-    public function setRegistration(string $Registration): self
+    public function setMatriculation(string $Matriculation): self
     {
-        $this->Registration = $Registration;
+        $this->Matriculation = $Matriculation;
 
         return $this;
     }

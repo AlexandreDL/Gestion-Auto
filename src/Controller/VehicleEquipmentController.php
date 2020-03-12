@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Equipment;
+use App\Entity\Vehicle;
 use App\Entity\VehicleEquipment;
 use App\Form\VehicleEquipmentType;
 use App\Repository\VehicleEquipmentRepository;
@@ -26,23 +28,45 @@ class VehicleEquipmentController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="vehicle_equipment_new", methods={"POST"})
+     * @Route("/new/{vehicleId}", name="vehicle_equipment_new", methods={"POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, $vehicleId): Response
     {
         $vehicleEquipment = new VehicleEquipment();
         $form = $this->createForm(VehicleEquipmentType::class, $vehicleEquipment);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($vehicleEquipment);
-            $entityManager->flush();
+            $em = $this->getDoctrine()->getManager();
 
-            return $this->redirectToRoute('vehicle_equipment_index');
+            if (($em->getRepository(VehicleEquipment::class)->findOneBy([
+                'vehicle' => $vehicleId,
+                'equipment' => $vehicleEquipment->getEquipment()->getId()
+            ])) !== null) {
+                $this->addFlash('alert', 'Ce véhicule possède déjà cet équipement !');
+            } else {
+                // On affecte le vehicle actuellement modifié à $vehicleEquipment
+                $vehicle = $em->getRepository(Vehicle::class)->findOneBy([
+                    'id' => $vehicleId
+                ]);
+                $equipment = $em->getRepository(Equipment::class)->findOneBy([
+                    'id' => $vehicleEquipment->getEquipment()->getId()
+                ]);
+
+                $vehicleEquipment
+                    ->setVehicle($vehicle)
+                    ->setEquipment($equipment)
+                    ->setLongName($equipment->getLongName())
+                    ->setWeight($equipment->getWeight());
+
+                $em->persist($vehicleEquipment);
+                $em->flush();
+
+                $this->addFlash('success', 'Cet équipement a bien été ajouté !');
+            }
         }
-
         return $this->render('vehicle_equipment/new.html.twig', [
+            'vehicle' => $vehicleId,
             'vehicle_equipment' => $vehicleEquipment,
             'form' => $form->createView(),
         ]);
@@ -59,20 +83,28 @@ class VehicleEquipmentController extends AbstractController
     }
 
     /**
-     * @Route("/{vehicle}/edit", name="vehicle_equipment_edit", methods={"GET","POST"})
+     * @Route("/{vehicle}/edit/{equipment}", name="vehicle_equipment_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, VehicleEquipment $vehicleEquipment): Response
+    public function edit(Request $request, VehicleEquipment $vehicleEquipment, $equipment, $vehicle): Response
     {
         $form = $this->createForm(VehicleEquipmentType::class, $vehicleEquipment);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+
+            // On affecte la modification de l'equipment à $vehicleEquipment
+            $equipmentToUpdate = $em->getRepository(Equipment::class)->findOneBy([
+                'id' => $equipment
+            ]);
+            $vehicleEquipment->setEquipment($equipmentToUpdate);
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('vehicle_equipment_index');
+            $this->addFlash('success', 'Cet équipement a bien été modifié !');
         }
 
         return $this->render('vehicle_equipment/edit.html.twig', [
+            'vehicle' => $vehicle,
             'vehicle_equipment' => $vehicleEquipment,
             'form' => $form->createView(),
         ]);
@@ -84,14 +116,17 @@ class VehicleEquipmentController extends AbstractController
     public function delete($vehicle, $equipment): Response
     {
         $em = $this->getDoctrine()->getManager();
-        $equipmentToDelete = 
-        $em->getRepository(VehicleEquipment::class)->findOneBy([
-            'vehicle' => $vehicle,
-            'equipment' => $equipment
+        $equipmentToDelete =
+            $em->getRepository(VehicleEquipment::class)->findOneBy([
+                'vehicle' => $vehicle,
+                'equipment' => $equipment
             ]);
         $em->remove($equipmentToDelete);
         $em->flush();
 
-        return $this->redirectToRoute('vehicle_equipment_index');
+        return $this->redirectToRoute(
+            'vehicle_edit',
+            ['id' => $vehicle]
+        );
     }
 }

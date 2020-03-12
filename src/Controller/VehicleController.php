@@ -3,13 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\Vehicle;
-use App\Form\VehicleType;
 use App\Entity\VehicleEquipment;
+use App\Form\VehicleType;
 use App\Repository\VehicleRepository;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class VehicleController extends AbstractController
 {
@@ -62,6 +62,7 @@ class VehicleController extends AbstractController
      */
     public function edit(Request $request, Vehicle $vehicle, $id): Response
     {
+
         $form = $this->createForm(VehicleType::class, $vehicle);
         $form->handleRequest($request);
 
@@ -93,8 +94,8 @@ class VehicleController extends AbstractController
     public function getVehicleEquipments($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $vehicleEquipments = 
-        $em->getRepository(VehicleEquipment::class)->findBy(['vehicle' => $id]);
+        $vehicleEquipments =
+            $em->getRepository(VehicleEquipment::class)->findBy(['vehicle' => $id]);
 
         return $vehicleEquipments;
     }

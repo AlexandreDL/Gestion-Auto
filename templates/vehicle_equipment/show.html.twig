@@ -1,26 +1,26 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}VehicleEquipment{% endblock %}
+{% block title %}Vehicule Equipement{% endblock %}
 
 {% block body %}
-    <h1>VehicleEquipment</h1>
+    <h1>Vehicle Equipement</h1>
 
     <table class="table">
         <tbody>
             <tr>
-                <th>LongName</th>
+                <th>Nom Long</th>
                 <td>{{ vehicle_equipment.longName }}</td>
             </tr>
             <tr>
-                <th>Weight</th>
+                <th>Poids</th>
                 <td>{{ vehicle_equipment.weight }}</td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('vehicle_equipment_index') }}">back to list</a>
+    <a href="{{ path('vehicle_equipment_index') }}">Retour à la liste</a>
 
-    <a href="{{ path('vehicle_equipment_edit', {'vehicle': vehicle_equipment.vehicle}) }}">edit</a>
+    <a href="{{ path('vehicle_equipment_edit', {'vehicle': vehicle_equipment.vehicle}) }}">editer</a>
 
     {{ include('vehicle_equipment/_delete_form.html.twig') }}
 {% endblock %}

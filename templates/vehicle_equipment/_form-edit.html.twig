@@ -1,9 +1,8 @@
 {{ form_start(form) }}
-{{ form_label(form.ShortName, 'Nom Court') }}
-{{ form_widget(form.ShortName, {'attr': {'class': 'text-center mb-3'}}) }}
-{{ form_label(form.LongName, 'Nom Long') }}
+{% do form.equipment.setRendered() %}
+{{ form_label(form.LongName, 'Nom long') }}
 {{ form_widget(form.LongName, {'attr': {'class': 'text-center mb-3'}}) }}
-{{ form_label(form.Weight, 'Poids (Kg)') }}
+{{ form_label(form.Weight, 'poids (Kg)') }}
 {{ form_widget(form.Weight, {'attr': {'class': 'text-center mb-3'}}) }}
 <button class="btn btn-success mx-auto d-flex justify-content-center m-3">Valider</button>
 {{ form_end(form) }}

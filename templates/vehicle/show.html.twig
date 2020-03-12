@@ -1,70 +1,68 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Vehicle{% endblock %}
+{% block title %}Détails du véhicule
+{% endblock %}
 
 {% block body %}
-    <h1 class="alert alert-info text-center">Vehicle details</h1>
-
-        <div class="d-flex justify-content-center m-3"> 
-
+	<h1 class="alert alert-info text-center">Détails du véhicule</h1>
+	<div class="d-flex justify-content-center m-3">
 		<a href="{{ path('vehicle_index') }}" class="btn btn-info mr-2">
-			<i class="fa fa-arrow-left" aria-hidden="true"></i>
+			<i class="fa fa-arrow-left fa-lg" aria-hidden="true"></i>
 		</a>
 		<a href="{{ path('vehicle_edit', {'id': vehicle.id}) }}" class="btn btn-warning mr-2">
-			<i class="fa fa-pencil" aria-hidden="true"></i>
+			<i class="fa fa-pencil fa-lg" aria-hidden="true"></i>
 		</a>
 		<form action="{{ path('vehicle_delete', {'id': vehicle.id}) }}" method="post">
 			<button type="submit" class="btn btn-danger">
-				<i class="fa fa-trash"></i>
+				<i class="fa fa-trash fa-lg"></i>
 			</button>
 		</form>
 	</div>
-    	<table class="table d-flex justify-content-center">
+	<table class="table d-flex justify-content-center">
 		<tbody>
 			<tr>
 				<th>Id</th>
 				<td>{{ vehicle.id }}</td>
 			</tr>
 			<tr>
-				<th>Registration</th>
-				<td>{{ vehicle.registration }}</td>
+				<th>immatriculation</th>
+				<td>{{ vehicle.matriculation }}</td>
 			</tr>
 			<tr>
-				<th>Brand</th>
+				<th>Marque</th>
 				<td>{{ vehicle.brand }}</td>
 			</tr>
 			<tr>
-				<th>Model</th>
+				<th>Modèle</th>
 				<td>{{ vehicle.model }}</td>
 			</tr>
 			<tr>
-				<th>Color</th>
+				<th>Couleur</th>
 				<td>{{ vehicle.color }}</td>
 			</tr>
 		</tbody>
 	</table>
-    <h3 class="alert alert-secondary text-center">Vehicle equipments</h3>
+	<h3 class="alert alert-secondary text-center">Equipments présents sur ce véhicule</h3>
 	<table class="table text-center">
 		<thead>
 			<tr>
 				<th>Id</th>
-				<th>Long Name</th>
-				<th>Weight</th>
+				<th>Nom court</th>
+				<th>Nom Long</th>
+				<th>Poids (Kg)</th>
 			</tr>
 		</thead>
 		<tbody>
-			{% for equipment in equipments %}
-            <pre>
-                {{ dump(equipment) }}
-            </pre>
+			{% for equipment in equipments|sort((a, b) => a.weight <=> b.weight) %}
 				<tr>
 					<td>{{ equipment.equipment.id }}</td>
+					<td>{{ equipment.equipment.shortName }}</td>
 					<td>{{ equipment.longName }}</td>
 					<td>{{ equipment.weight }}</td>
 				</tr>
 			{% else %}
 				<tr>
-					<td colspan="6" class="alert alert-danger">No equipment in this vehicle !</td>
+					<td colspan="6" class="alert alert-warning">Aucun équipement présent sur ce véhicule !</td>
 				</tr>
 			{% endfor %}
 		</tbody>
