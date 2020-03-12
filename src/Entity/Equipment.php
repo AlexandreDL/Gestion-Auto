@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -30,6 +32,16 @@ class Equipment
      * @ORM\Column(type="integer")
      */
     private $Weight;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\VehicleEquipment", mappedBy="equipment")
+     */
+    private $equipmentVehicle;
+
+    public function __construct()
+    {
+        $this->equipmentVehicle = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -68,6 +80,37 @@ class Equipment
     public function setWeight(int $Weight): self
     {
         $this->Weight = $Weight;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|VehicleEquipment[]
+     */
+    public function getEquipmentVehicle(): Collection
+    {
+        return $this->equipmentVehicle;
+    }
+
+    public function addEquipmentVehicle(VehicleEquipment $equipmentVehicle): self
+    {
+        if (!$this->equipmentVehicle->contains($equipmentVehicle)) {
+            $this->equipmentVehicle[] = $equipmentVehicle;
+            $equipmentVehicle->setEquipment($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEquipmentVehicle(VehicleEquipment $equipmentVehicle): self
+    {
+        if ($this->equipmentVehicle->contains($equipmentVehicle)) {
+            $this->equipmentVehicle->removeElement($equipmentVehicle);
+            // set the owning side to null (unless already changed)
+            if ($equipmentVehicle->getEquipment() === $this) {
+                $equipmentVehicle->setEquipment(null);
+            }
+        }
 
         return $this;
     }

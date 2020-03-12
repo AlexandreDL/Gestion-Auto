@@ -1,14 +1,38 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Détails d'un véhicule{% endblock %}
+{% block title %}Vehicle{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <h1>Vehicle</h1>
 
-<div class="example-wrapper">
-    <h1>Détails concernant le véhicule : {{ controller_name }}</h1>
-</div>
-{% endblock %} 
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ vehicle.id }}</td>
+            </tr>
+            <tr>
+                <th>Registration</th>
+                <td>{{ vehicle.registration }}</td>
+            </tr>
+            <tr>
+                <th>Brand</th>
+                <td>{{ vehicle.brand }}</td>
+            </tr>
+            <tr>
+                <th>Model</th>
+                <td>{{ vehicle.model }}</td>
+            </tr>
+            <tr>
+                <th>Color</th>
+                <td>{{ vehicle.color }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('vehicle_index') }}">back to list</a>
+
+    <a href="{{ path('vehicle_edit', {'id': vehicle.id}) }}">edit</a>
+
+    {{ include('vehicle/_delete_form.html.twig') }}
+{% endblock %}

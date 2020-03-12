@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -35,6 +37,16 @@ class Vehicle
      * @ORM\Column(type="string", length=255)
      */
     private $Color;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\VehicleEquipment", mappedBy="vehicle")
+     */
+    private $vehicleEquipments;
+
+    public function __construct()
+    {
+        $this->vehicleEquipments = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -85,6 +97,37 @@ class Vehicle
     public function setColor(string $Color): self
     {
         $this->Color = $Color;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|VehicleEquipment[]
+     */
+    public function getVehicleEquipments(): Collection
+    {
+        return $this->vehicleEquipments;
+    }
+
+    public function addVehicleEquipment(VehicleEquipment $vehicleEquipment): self
+    {
+        if (!$this->vehicleEquipments->contains($vehicleEquipment)) {
+            $this->vehicleEquipments[] = $vehicleEquipment;
+            $vehicleEquipment->setVehicle($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVehicleEquipment(VehicleEquipment $vehicleEquipment): self
+    {
+        if ($this->vehicleEquipments->contains($vehicleEquipment)) {
+            $this->vehicleEquipments->removeElement($vehicleEquipment);
+            // set the owning side to null (unless already changed)
+            if ($vehicleEquipment->getVehicle() === $this) {
+                $vehicleEquipment->setVehicle(null);
+            }
+        }
 
         return $this;
     }
