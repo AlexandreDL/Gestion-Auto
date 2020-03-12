@@ -19,12 +19,12 @@ class Equipment
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $Short_name;
+    private $ShortName;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $Long_name;
+    private $LongName;
 
     /**
      * @ORM\Column(type="integer")
@@ -38,24 +38,24 @@ class Equipment
 
     public function getShortName(): ?string
     {
-        return $this->Short_name;
+        return $this->ShortName;
     }
 
-    public function setShortName(string $Short_name): self
+    public function setShortName(string $ShortName): self
     {
-        $this->Short_name = $Short_name;
+        $this->ShortName = $ShortName;
 
         return $this;
     }
 
     public function getLongName(): ?string
     {
-        return $this->Long_name;
+        return $this->LongName;
     }
 
-    public function setLongName(string $Long_name): self
+    public function setLongName(string $LongName): self
     {
-        $this->Long_name = $Long_name;
+        $this->LongName = $LongName;
 
         return $this;
     }
