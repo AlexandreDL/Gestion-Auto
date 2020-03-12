@@ -6,20 +6,19 @@
 
     <h1 class="alert alert-info text-center">Vehicle Edit</h1>
 
-	{{ form_start(form) }}
-	{{ form_widget(form) }}
-	<button class="btn btn-success mx-auto d-flex justify-content-center m-3">{{ button_label|default('Save') }}</button>
-	{{ form_end(form) }}
+	<div class="container col-12 text-center">
+		{% include "vehicle/_form.html.twig" %}
+	</div>
 
-	<h3 class="alert alert-secondary text-center">Vehicle equipments</h3>
+	<h3 class="alert alert-secondary text-center d-flex justify-content-center">Vehicle equipments</h3>
 	<table class="table text-center">
-		<thead>
-			<tr>
-				<th>Id</th>
-				<th>Long Name</th>
-				<th>Weight</th>
-				<th>Actions</th>
-			</tr>
+            <th>
+                <form class="text-center" action="{{ path('vehicle_equipment_new') }}" method="post">
+                    <button type="submit" class="btn btn-success">
+                        <i class="fa fa-plus fa-lg"></i>
+                    </button>
+                </form>
+            </th>
 		</thead>
 		<tbody>
 			{% for equipment in equipments %}

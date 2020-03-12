@@ -1,4 +1,9 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn btn-success">{{ button_label|default('Save') }}</button>
+{{ form_label(form.shortName, 'Short Name') }}
+{{ form_widget(form.shortName, {'attr': {'class': 'text-center mb-3'}}) }}
+{{ form_label(form.longName, 'Long Name') }}
+{{ form_widget(form.longName, {'attr': {'class': 'text-center mb-3'}}) }}
+{{ form_label(form.weight, 'Weight (Kg)') }}
+{{ form_widget(form.weight, {'attr': {'class': 'text-center mb-3'}}) }}
+<button class="btn btn-success mx-auto d-flex justify-content-center m-3">Send</button>
 {{ form_end(form) }}

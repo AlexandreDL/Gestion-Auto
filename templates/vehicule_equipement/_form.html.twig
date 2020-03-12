@@ -1,0 +1,11 @@
+{{ form_start(form) }}
+<button class="btn btn-success mx-auto d-flex justify-content-center m-3">Send</button>
+
+{% do form.vehicle.setRendered() %}
+{% do form.equipment.setRendered() %}
+
+{{ form_label(form.longName, 'Long name') }}
+{{ form_widget(form.longName, {'attr': {'class': 'text-center mb-3'}}) }}
+{{ form_label(form.weight, 'Weight') }}
+{{ form_widget(form.weight, {'attr': {'class': 'text-center mb-3'}}) }}
+{{ form_end(form) }}

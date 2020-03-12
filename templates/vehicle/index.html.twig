@@ -26,14 +26,14 @@
 					<td>{{ vehicle.color }}</td>
 					<td class="d-flex justify-content-center">
 						<a href="{{ path('vehicle_show', {'id': vehicle.id}) }}" class="btn btn-info mr-2">
-							<i class="fa fa-eye" aria-hidden="true"></i>
+							<i class="fa fa-eye fa-lg" aria-hidden="true"></i>
 						</a>
 						<a href="{{ path('vehicle_edit', {'id': vehicle.id}) }}" class="btn btn-warning mr-2">
-							<i class="fa fa-pencil" aria-hidden="true"></i>
+							<i class="fa fa-pencil fa-lg" aria-hidden="true"></i>
 						</a>
 						<form action="{{ path('vehicle_delete', {'id': vehicle.id}) }}" method="post">
 							<button type="submit" class="btn btn-danger">
-								<i class="fa fa-trash"></i>
+								<i class="fa fa-trash fa-lg"></i>
 							</button>
 						</form>
 					</td>

@@ -1,4 +1,11 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn btn-success">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+{{ form_label(form.registration, 'Registration') }}
+{{ form_widget(form.registration, {'attr': {'class': 'text-center mb-3'}}) }}
+{{ form_label(form.brand, 'Brand') }}
+{{ form_widget(form.brand, {'attr': {'class': 'text-center mb-3'}}) }}
+{{ form_label(form.model, 'Model') }}
+{{ form_widget(form.model, {'attr': {'class': 'text-center mb-3'}}) }}
+{{ form_label(form.color, 'Color') }}
+{{ form_widget(form.color, {'attr': {'class': 'text-center mb-3'}}) }}
+<button class="btn btn-success mx-auto d-flex justify-content-center m-3">Send</button>
+{{ form_end(form) }} 
