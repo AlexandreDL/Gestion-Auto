@@ -3,7 +3,7 @@
 {% block title %}Vehicle{% endblock %}
 
 {% block body %}
-    <h1 class="alert alert-info">Vehicle detail</h1>
+    <h1 class="alert alert-info text-center">Vehicle details</h1>
 
         <div class="d-flex justify-content-center m-3"> 
 
@@ -41,6 +41,32 @@
 				<th>Color</th>
 				<td>{{ vehicle.color }}</td>
 			</tr>
+		</tbody>
+	</table>
+    <h3 class="alert alert-secondary text-center">Vehicle equipments</h3>
+	<table class="table text-center">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Long Name</th>
+				<th>Weight</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for equipment in equipments %}
+            <pre>
+                {{ dump(equipment) }}
+            </pre>
+				<tr>
+					<td>{{ equipment.equipment.id }}</td>
+					<td>{{ equipment.longName }}</td>
+					<td>{{ equipment.weight }}</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="6" class="alert alert-danger">No equipment in this vehicle !</td>
+				</tr>
+			{% endfor %}
 		</tbody>
 	</table>
 {% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}VehicleEquipment index{% endblock %}
+
+{% block body %}
+    <h1>VehicleEquipment index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>LongName</th>
+                <th>Weight</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for vehicle_equipment in vehicle_equipments %}
+            <tr>
+                <td>{{ vehicle_equipment.longName }}</td>
+                <td>{{ vehicle_equipment.weight }}</td>
+                <td>
+                    <a href="{{ path('vehicle_equipment_show', {'vehicle': vehicle_equipment.vehicle}) }}">show</a>
+                    <a href="{{ path('vehicle_equipment_edit', {'vehicle': vehicle_equipment.vehicle}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('vehicle_equipment_new') }}">Create new</a>
+{% endblock %}

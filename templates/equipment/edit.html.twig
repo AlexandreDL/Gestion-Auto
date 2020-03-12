@@ -4,8 +4,11 @@
 
 {% block body %}
 
-    <h1 class="alert alert-info">Edition de l'équipment</h1>
+    <h1 class="alert alert-info text-center">Equipment edit</h1>
 
-    {{ include('equipment/_form.html.twig', {'button_label': 'Save'}) }}
+	{{ form_start(form) }}
+	{{ form_widget(form) }}
+	<button class="btn btn-success mx-auto d-flex justify-content-center m-3">{{ button_label|default('Save') }}</button>
+	{{ form_end(form) }}
 
 {% endblock %}
